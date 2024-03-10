@@ -37,18 +37,22 @@ function toggleDarkMode () {
 
 // set cookie for droit dark mode
 function dSetCookie(cname, cvalue, exdays = 365) {
-  var d = new Date();
+  const d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  var expires = "expires="+d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  const expires = 'expires=' + d.toUTCString();
+  let domain = window.location.hostname; // Get the current domain
+  if (domain.includes('greenaider.com')) {
+    domain = '.greenaider.com'; // Add a wildcard for all subdomains
+  }
+  document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/; domain=" + domain;
 }
 
 // get cookie for droit dark mode
 function dGetCookie(cname) {
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
+  const name = cname + '=';
+  const ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
     while (c.charAt(0) === ' ') {
       c = c.substring(1);
     }
